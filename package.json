@@ -11,11 +11,15 @@
     "fs": "0.0.1-security"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^3.15.0",
+    "assert": "^1.4.1",
     "mocha": "^3.2.0"
   },
   "scripts": {
     "test": "mocha",
-    "test:debug": "mocha --debug-brk"
+    "test:debug": "mocha --debug-brk",
+    "pretest": "eslint {lib, test}/**/*.js"
   },
   "repository": {
     "type": "git",

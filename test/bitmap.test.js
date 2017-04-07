@@ -39,26 +39,24 @@ describe('reads bitmap file header', () => {
         assert.equal(header.bitsPerPixel, 24);
     });
 
-    // it('reads the header for palette', () => {
-    //     const header = new BitmapHeader(palette);
-    //     assert.equal(header.fileSize, 11078);
-    //     assert.equal(header.isPaletted, 256);
-    //     assert.equal(header.pixelOffset, 1078);
-    //     assert.equal(header.bitsPerPixel, 8);
-    // });
+    it('reads the header for palette', () => {
+        const header = new BitmapHeader(palette);
+        assert.equal(header.fileSize, 11078);
+        assert.equal(header.isPaletted, 256);
+        assert.equal(header.pixelOffset, 1078);
+        assert.equal(header.bitsPerPixel, 8);
+    });
 });
 
-describe('transforms to paletted bpm', () => {
+describe('transforms to non-paletted bpm both inverted and grayscale', () => {
 
-    it('inverts all the colors', () => {
+    it('inverts non-paletted bpm', () => {
         const bitmap = new BitmapTransform(noPalette);
         const bmpBuffer = bitmap.transformWithOutPalette(invert);
 
-        // Write the changed buffer/image to a new bitmap file
         bitmap.write('./test/output.bmp', bmpBuffer, (err) => {
             if (err) return err;
             else {
-                // Read and assert the new file
                 fs.readFile('./test/output.bmp', (err, buffer) => {
                     assert.deepEqual(bmpBuffer, buffer);
                     done();
@@ -67,8 +65,19 @@ describe('transforms to paletted bpm', () => {
         });
     });
 
-    it('grayscales all the colors', () => {
+    it('grayscales non-paletted bpm', () => {
+        const bitmap = new BitmapTransform(noPalette);
+        const bmpBuffer = bitmap.transformWithOutPalette(grayscale);
 
+        bitmap.write('./test/grayscale-output.bmp', bmpBuffer, (err) => {
+            if (err) return err;
+            else {
+                fs.readFile('./test/output.bmp', (err, buffer) => {
+                    assert.deepEqual(bmpBuffer, buffer);
+                    done();
+                });
+            }
+        });
     });
     
     it('', () => {

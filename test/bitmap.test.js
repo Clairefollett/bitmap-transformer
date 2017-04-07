@@ -92,7 +92,7 @@ describe('transforms to paletted bpm both inverted and grayscale', () => {
         assert.equal(header.bitsPerPixel, 8);
     });
 
-    it('inverts all the rgb colors of the original bmp', done => {
+    it('inverts palette', done => {
         const bitmap = new BitmapTransform(palette);
         const bmpBuffer = bitmap.transformWithPalette(invert);
 
@@ -108,7 +108,7 @@ describe('transforms to paletted bpm both inverted and grayscale', () => {
         });
     });
 
-    it('grayscales all the rgb colors of the original bmp', done => {
+    it('grayscales palette', done => {
         const bitmap = new BitmapTransform(palette);
         const bmpBuffer = bitmap.transformWithPalette(grayscale);
 
